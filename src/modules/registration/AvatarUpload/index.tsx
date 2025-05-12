@@ -31,11 +31,6 @@ const AvatarUpload = ({ onClickNext, onClickBack, registrationData }: AvatarUplo
     onClickNext(data)
   })
 
-  const handleAvatarChange = (files: FileList | null) => {
-    if (files && files.length > 0) {
-      console.log('Selected File:', files[0])
-    }
-  }
   const handleBack = () => {
     if (onClickBack) {
       onClickBack({ avatar: watchAvatar })
@@ -47,13 +42,7 @@ const AvatarUpload = ({ onClickNext, onClickBack, registrationData }: AvatarUplo
       <Card.Body>
         <form onSubmit={onSubmit}>
           <VStack justifyContent="center" alignItems="center" gap={4}>
-            <AvatarUploadField
-              name="avatar"
-              control={control}
-              label="Upload Avatar"
-              prevImage={registrationData?.avatar?.item(0)}
-              onFileChange={handleAvatarChange}
-            />
+            <AvatarUploadField name="avatar" control={control} label="Upload Avatar" />
             <HStack gap={4}>
               <Button variant="outline" onClick={handleBack}>
                 Back

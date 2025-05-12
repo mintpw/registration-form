@@ -2,29 +2,34 @@ import {
   Button,
   Field,
   FileUpload,
-  Float,
+  Image,
   useFileUploadContext,
   type FileUploadRootProps,
 } from '@chakra-ui/react'
-import { Controller, type FieldValues, type UseControllerProps } from 'react-hook-form'
-import { LuFileImage, LuX } from 'react-icons/lu'
+import {
+  Controller,
+  type ControllerRenderProps,
+  type FieldValues,
+  type Path,
+  type UseControllerProps,
+} from 'react-hook-form'
+import { LuFileImage } from 'react-icons/lu'
 
 type AvatarUploadField<TFieldValues extends FieldValues> = {
   label?: string
-  onFileChange?: (files: FileList | null) => void
-  prevImage: File | null | undefined
 } & UseControllerProps<TFieldValues> &
   Omit<FileUploadRootProps, 'name'>
 
-type FileUploadList = {
-  prevImage: File | null | undefined
+type FileUploadListProps = {
+  prevImage: FileList | null | undefined
 }
 
-const FileUploadList = ({ prevImage }: FileUploadList) => {
+const FileUploadList = ({ prevImage }: FileUploadListProps) => {
   const fileUpload = useFileUploadContext()
-  const files = prevImage ? [prevImage] : fileUpload.acceptedFiles
+  const files = prevImage ? Array.from(prevImage) : fileUpload.acceptedFiles
 
   if (files.length === 0) return null
+
   return (
     <FileUpload.ItemGroup alignItems="center">
       {files.map((file) => (
@@ -37,11 +42,6 @@ const FileUploadList = ({ prevImage }: FileUploadList) => {
           key={file.name}
         >
           <FileUpload.ItemPreviewImage height="100%" objectFit="contain" />
-          <Float placement="top-end">
-            <FileUpload.ItemDeleteTrigger boxSize="4" layerStyle="fill.solid">
-              <LuX />
-            </FileUpload.ItemDeleteTrigger>
-          </Float>
         </FileUpload.Item>
       ))}
     </FileUpload.ItemGroup>
@@ -52,29 +52,36 @@ export function AvatarUploadField<TFieldValues extends FieldValues>({
   name,
   control,
   label,
-  onFileChange,
-  prevImage,
   ...fileUploadProps
 }: AvatarUploadField<TFieldValues>) {
+  const handleFileChange = (field: ControllerRenderProps<TFieldValues, Path<TFieldValues>>) => {
+    return (event: React.ChangeEvent<HTMLInputElement>) => {
+      const files = event.target.files
+      console.log('FileList:', files)
+      field.onChange(files)
+    }
+  }
   return (
     <Controller
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => {
-        const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-          const files = event.target.files
-          console.log('FileList:', files)
-          field.onChange(files)
-          if (onFileChange) {
-            onFileChange(files)
-          }
-        }
+        const onChange = handleFileChange(field)
 
         return (
           <Field.Root invalid={!!error}>
-            <FileUpload.Root accept="image/*" {...fileUploadProps} onChange={handleFileChange}>
+            <FileUpload.Root
+              accept="image/*"
+              {...fileUploadProps}
+              onChange={onChange}
+              alignItems="center"
+            >
               <FileUpload.HiddenInput />
-              <FileUploadList prevImage={prevImage} />
+              {field.value ? (
+                <FileUploadList prevImage={field.value} />
+              ) : (
+                <Image alt="avatarFallBack" src="/src/assets/avatar-default.svg" boxSize="250px" />
+              )}
               <FileUpload.Trigger asChild>
                 <Button variant="outline" size="sm">
                   <LuFileImage /> {label}

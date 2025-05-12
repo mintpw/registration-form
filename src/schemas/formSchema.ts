@@ -32,16 +32,15 @@ export const formSchema = z
   })
 
 export const avatarUploadSchema = z.object({
-  avatar: z
-    .custom<FileList>()
-    .refine(
-      (fileList) => {
-        if (!fileList) return false
-        return fileList instanceof FileList && fileList.length > 0
-      },
-      {
-        message: ERROR_MESSAGES.authForm.avatar.required,
-      }
-    )
-    .optional(),
+  avatar: z.custom<FileList>().refine(
+    (fileList) => {
+      console.log('refine', fileList)
+
+      if (!fileList) return false
+      return fileList instanceof FileList && fileList.length > 0
+    },
+    {
+      message: ERROR_MESSAGES.authForm.avatar.required,
+    }
+  ),
 })
