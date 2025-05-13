@@ -57,7 +57,6 @@ export function AvatarUploadField<TFieldValues extends FieldValues>({
   const handleFileChange = (field: ControllerRenderProps<TFieldValues, Path<TFieldValues>>) => {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
       const files = event.target.files
-      console.log('FileList:', files)
       field.onChange(files)
     }
   }

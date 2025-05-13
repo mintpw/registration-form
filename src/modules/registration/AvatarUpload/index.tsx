@@ -1,16 +1,14 @@
 import { AvatarUploadField } from '@/components/hook-form/AvatarUploadField'
 import { avatarUploadSchema } from '@/schemas'
+import type { AvatarUploadValues } from '@/types'
 import { Button, Card, HStack, VStack } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, type Resolver } from 'react-hook-form'
-import { z } from 'zod'
-
-type FormValues = z.infer<typeof avatarUploadSchema>
 
 interface AvatarUploadProps {
-  onClickNext: (data: Partial<FormValues>) => void
-  onClickBack?: (data?: Partial<FormValues>) => void
-  registrationData?: Partial<FormValues>
+  onClickNext: (data: Partial<AvatarUploadValues>) => void
+  onClickBack?: (data?: Partial<AvatarUploadValues>) => void
+  registrationData?: Partial<AvatarUploadValues>
 }
 
 const AvatarUpload = ({ onClickNext, onClickBack, registrationData }: AvatarUploadProps) => {
@@ -19,8 +17,8 @@ const AvatarUpload = ({ onClickNext, onClickBack, registrationData }: AvatarUplo
     watch,
     control,
     formState: { isValid },
-  } = useForm<FormValues>({
-    resolver: zodResolver(avatarUploadSchema) as Resolver<FormValues>,
+  } = useForm<AvatarUploadValues>({
+    resolver: zodResolver(avatarUploadSchema) as Resolver<AvatarUploadValues>,
     mode: 'onChange',
     defaultValues: registrationData || { avatar: undefined },
   })
