@@ -1,12 +1,10 @@
 import { PasswordField, SelectField, TextField } from '@/components/hook-form'
-import { INTERESTS_COLLECTION } from '@/constants'
+import useInterests from '@/hooks/useInterests'
 import { formSchema } from '@/schemas'
-import { Button, Card, Stack } from '@chakra-ui/react'
+import type { FormValues } from '@/types'
+import { Button, Card, Center, createListCollection, Spinner, Stack } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-
-type FormValues = z.infer<typeof formSchema>
 
 interface PersonalInformationProps {
   onClickNext: (data: Partial<FormValues>) => void
@@ -17,7 +15,7 @@ const PersonalInformation = ({ onClickNext, registrationData }: PersonalInformat
   const {
     handleSubmit,
     control,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     mode: 'onChange',
@@ -29,11 +27,13 @@ const PersonalInformation = ({ onClickNext, registrationData }: PersonalInformat
     },
   })
 
+  const { interestsCollection, isLoading } = useInterests()
+
   const handleNext = handleSubmit((data) => {
     onClickNext(data)
   })
 
-  return (
+  return !isLoading ? (
     <Card.Root width="50vh">
       <Card.Body>
         <form onSubmit={handleNext}>
@@ -56,23 +56,30 @@ const PersonalInformation = ({ onClickNext, registrationData }: PersonalInformat
               control={control}
               placeholder="Confirm your password"
             />
-            <SelectField
-              multiple
-              name="interests"
-              label="Interests"
-              placeholder="Select your interests"
-              control={control}
-              collection={INTERESTS_COLLECTION}
-              errors={errors.interests?.message}
-            />
+            {interestsCollection ? (
+              <SelectField
+                multiple
+                name="interests"
+                label="Interests"
+                placeholder="Select your interests"
+                helpText="Max 2 options"
+                control={control}
+                collection={createListCollection(interestsCollection)}
+                errors={errors.interests?.message}
+              />
+            ) : null}
 
-            <Button variant="solid" type="submit" alignSelf="end" disabled={!isValid}>
+            <Button variant="solid" type="submit" alignSelf="end">
               Next
             </Button>
           </Stack>
         </form>
       </Card.Body>
     </Card.Root>
+  ) : (
+    <Center>
+      <Spinner color="teal.500" size="lg" />
+    </Center>
   )
 }
 
