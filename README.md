@@ -1,54 +1,102 @@
-# React + TypeScript + Vite
+# Registration Form
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React application built with TypeScript, Vite, and Chakra UI. This project implements a responsive and accessible registration form with modern development practices and tooling.
 
-Currently, two official plugins are available:
+## 🚀 Technologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 19
+- TypeScript
+- Vite 6
+- Chakra UI 3
+- React Hook Form
+- Zod for validation
+- MSW for API mocking
+- Vitest for testing
 
-## Expanding the ESLint configuration
+## 📋 Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js (LTS version recommended)
+- pnpm (recommended) or npm
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🛠️ Setup and Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd job-task-fe
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. Install dependencies:
+```bash
+pnpm install
 ```
+
+3. Start the development server:
+```bash
+pnpm dev
+```
+
+The application will be available at `http://localhost:5173`
+
+## 📦 Available Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm preview` - Preview production build locally
+- `pnpm lint` - Run ESLint
+- `pnpm test` - Run tests with Vitest
+
+## 🗂️ Project Structure
+
+```
+registration-form/
+├── src/                  # Source code
+│   ├── assets/           # Static assets
+│   ├── components/       # Reusable UI components
+│   ├── constants/        # Application constants
+│   ├── hooks/            # Custom React hooks
+│   ├── mocks/            # MSW API mocks
+│   ├── modules/          # Feature-based modules
+│   ├── schemas/          # Zod validation schemas
+│   ├── test/             # Test files
+│   ├── test-utils/       # Testing utilities
+│   ├── types/            # TypeScript type definitions
+│   ├── utils/            # Utility functions
+│   ├── App.tsx           # Root component
+│   └── main.tsx          # Application entry point
+├── public/               # Public assets
+├── dist/                 # Production build output
+└── vite.config.ts        # Vite configuration
+```
+
+## 🔧 Configuration Files
+
+- `tsconfig.json` - TypeScript configuration
+- `vite.config.ts` - Vite configuration
+- `eslint.config.js` - ESLint configuration
+- `.prettierrc` - Prettier configuration
+
+## 🧪 Testing
+
+The project uses Vitest and React Testing Library for testing. Tests can be run using:
+
+```bash
+pnpm test
+```
+
+## 📝 Development Notes
+
+- The project uses the latest React features and best practices
+- Chakra UI is used for consistent and accessible UI components
+- Form handling is done with React Hook Form and Zod validation
+- API mocking is set up with MSW for development and testing
+- ESLint and Prettier are configured for code quality and consistency
+
+
+## 📚 Additional Resources
+
+- [Vite Documentation](https://vitejs.dev/)
+- [React Documentation](https://react.dev/)
+- [Chakra UI Documentation](https://chakra-ui.com/)
+- [TypeScript Documentation](https://www.typescriptlang.org/)
+- [Mock Service Worker Documentation](https://mswjs.io/docs/)
