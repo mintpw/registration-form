@@ -22,8 +22,8 @@ A modern React application built with TypeScript, Vite, and Chakra UI. This proj
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd job-task-fe
+git clone git@github.com:mintpw/registration-form.git
+cd registration-form
 ```
 
 2. Install dependencies:
