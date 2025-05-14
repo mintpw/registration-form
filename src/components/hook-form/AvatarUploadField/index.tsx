@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Field,
   FileUpload,
@@ -79,7 +80,14 @@ export function AvatarUploadField<TFieldValues extends FieldValues>({
               {field.value ? (
                 <FileUploadList prevImage={field.value} />
               ) : (
-                <Image alt="avatarFallBack" src="/src/assets/avatar-default.svg" boxSize="250px" />
+                <Box border="1px solid" borderColor="gray.200" boxSize="250px">
+                  <Image
+                    alt="avatarFallBack"
+                    src="/src/assets/avatar-default.svg"
+                    boxSize="250px"
+                    objectFit="contain"
+                  />
+                </Box>
               )}
               <FileUpload.Trigger asChild>
                 <Button variant="outline" size="sm">

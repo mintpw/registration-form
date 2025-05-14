@@ -37,11 +37,15 @@ const AvatarUpload = ({ onClickNext, onClickBack, registrationData }: AvatarUplo
 
   return (
     <Card.Root width="50vh">
+      <Card.Header>
+        <Card.Title>Sign up</Card.Title>
+        <Card.Description>Upload your avatar</Card.Description>
+      </Card.Header>
       <Card.Body>
         <form onSubmit={onSubmit}>
           <VStack justifyContent="center" alignItems="center" gap={4}>
             <AvatarUploadField name="avatar" control={control} label="Upload Avatar" />
-            <HStack gap={4}>
+            <HStack gap={4} width="100%" justifyContent="space-between">
               <Button variant="outline" onClick={handleBack}>
                 Back
               </Button>
