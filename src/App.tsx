@@ -1,4 +1,3 @@
-import './App.css'
 import Registration from './modules/registration'
 
 function App() {
