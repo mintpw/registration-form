@@ -1,4 +1,6 @@
 import defaultAvatar from '@/assets/avatar-default.svg'
+import { toaster, Toaster } from '@/components/ui/toaster'
+import { isValidImageType } from '@/utils'
 import {
   Box,
   Button,
@@ -6,6 +8,7 @@ import {
   FileUpload,
   Image,
   useFileUploadContext,
+  VStack,
   type FileUploadRootProps,
 } from '@chakra-ui/react'
 import {
@@ -59,9 +62,26 @@ export function AvatarUploadField<TFieldValues extends FieldValues>({
   const handleFileChange = (field: ControllerRenderProps<TFieldValues, Path<TFieldValues>>) => {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
       const files = event.target.files
+      if (!files || files.length === 0) {
+        field.onChange(null)
+        return
+      }
+
+      const file = files[0]
+      if (!isValidImageType(file)) {
+        event.target.value = ''
+        field.onChange(null)
+        toaster.create({
+          title: 'Invalid file type',
+          description: 'Please upload a valid image file',
+          type: 'error',
+        })
+        return
+      }
       field.onChange(files)
     }
   }
+
   return (
     <Controller
       name={name}
@@ -72,7 +92,8 @@ export function AvatarUploadField<TFieldValues extends FieldValues>({
         return (
           <Field.Root invalid={!!error}>
             <FileUpload.Root
-              accept="image/*"
+              accept=".jpg,.jpeg,.png"
+              maxFiles={1}
               {...fileUploadProps}
               onChange={onChange}
               alignItems="center"
@@ -96,7 +117,11 @@ export function AvatarUploadField<TFieldValues extends FieldValues>({
                 </Button>
               </FileUpload.Trigger>
             </FileUpload.Root>
-            <Field.ErrorText alignSelf="center">{error?.message}</Field.ErrorText>
+            <VStack alignSelf="center">
+              <Field.HelperText>Accepts .jpg, .jpeg, or .png file (max 5MB)</Field.HelperText>
+              <Field.ErrorText>{error?.message}</Field.ErrorText>
+            </VStack>
+            <Toaster />
           </Field.Root>
         )
       }}
