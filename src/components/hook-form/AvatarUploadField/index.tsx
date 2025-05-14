@@ -1,3 +1,4 @@
+import defaultAvatar from '@/assets/avatar-default.svg'
 import {
   Box,
   Button,
@@ -83,7 +84,7 @@ export function AvatarUploadField<TFieldValues extends FieldValues>({
                 <Box border="1px solid" borderColor="gray.200" boxSize="250px">
                   <Image
                     alt="avatarFallBack"
-                    src="/src/assets/avatar-default.svg"
+                    src={defaultAvatar}
                     boxSize="250px"
                     objectFit="contain"
                   />

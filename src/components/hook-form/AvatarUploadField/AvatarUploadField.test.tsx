@@ -15,7 +15,9 @@ vi.mock('@chakra-ui/react', async () => {
   }
 })
 
-vi.mock('/src/assets/avatar-default.svg', () => 'mocked-avatar-path')
+vi.mock('@/assets/avatar-default.svg', () => ({
+  default: 'mocked-avatar-path',
+}))
 
 const TestComponent = ({ label = 'Upload Avatar' }) => {
   const { control } = useForm({
