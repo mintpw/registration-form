@@ -34,7 +34,11 @@ const PersonalInformation = ({ onClickNext, registrationData }: PersonalInformat
   })
 
   return !isLoading ? (
-    <Card.Root width="50vh">
+    <Card.Root width="50vh" boxShadow="lg">
+      <Card.Header>
+        <Card.Title>Sign up</Card.Title>
+        <Card.Description>Fill in the form below to create an account</Card.Description>
+      </Card.Header>
       <Card.Body>
         <form onSubmit={handleNext}>
           <Stack gap="4" align="flex-start" maxW="sm">
