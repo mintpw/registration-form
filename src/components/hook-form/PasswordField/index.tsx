@@ -21,7 +21,7 @@ export function PasswordField<TFieldValues extends FieldValues>({
       render={({ field, fieldState: { error } }) => (
         <Field.Root invalid={!!error}>
           {label && <Field.Label>{label}</Field.Label>}
-          <PasswordInput {...field} {...inputProps} />
+          <PasswordInput role="textbox" {...field} {...inputProps} />
           <Field.ErrorText>{error?.message}</Field.ErrorText>
         </Field.Root>
       )}

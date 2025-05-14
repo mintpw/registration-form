@@ -4,7 +4,7 @@ import { Controller, type FieldValues, type UseControllerProps } from 'react-hoo
 type SelectFieldProps<TFieldValues extends FieldValues> = {
   label?: string
   placeholder?: string
-  errors: string | undefined
+  errors?: string | undefined
   maxSelections?: number
   helpText?: string
 } & UseControllerProps<TFieldValues> &
