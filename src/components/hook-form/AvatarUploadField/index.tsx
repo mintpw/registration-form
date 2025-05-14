@@ -95,7 +95,7 @@ export function AvatarUploadField<TFieldValues extends FieldValues>({
                 </Button>
               </FileUpload.Trigger>
             </FileUpload.Root>
-            <Field.ErrorText>{error?.message}</Field.ErrorText>
+            <Field.ErrorText alignSelf="center">{error?.message}</Field.ErrorText>
           </Field.Root>
         )
       }}

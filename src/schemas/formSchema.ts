@@ -45,13 +45,26 @@ export const formSchema = z
   })
 
 export const avatarUploadSchema = z.object({
-  avatar: z.custom<FileList>().refine(
-    (fileList) => {
-      if (!fileList) return false
-      return fileList instanceof FileList && fileList.length > 0
-    },
-    {
-      message: ERROR_MESSAGES.authForm.avatar.required,
-    }
-  ),
+  avatar: z
+    .custom<FileList>()
+    .refine(
+      (fileList) => {
+        if (!fileList) return false
+        return fileList instanceof FileList && fileList.length > 0
+      },
+      {
+        message: ERROR_MESSAGES.authForm.avatar.required,
+      }
+    )
+    .refine(
+      (fileList) => {
+        if (!fileList || fileList.length === 0) return false
+        const file = fileList[0]
+        const maxSize = 5 * 1024 * 1024 // 5MB in bytes
+        return file.size <= maxSize
+      },
+      {
+        message: ERROR_MESSAGES.authForm.avatar.maxSize,
+      }
+    ),
 })

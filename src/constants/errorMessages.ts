@@ -29,6 +29,7 @@ export const ERROR_MESSAGES = {
     },
     avatar: {
       required: 'Avatar image is required',
+      maxSize: 'Avatar file size must be less than 5MB',
     },
   },
 } as const
