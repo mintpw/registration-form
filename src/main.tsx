@@ -5,9 +5,6 @@ import { Provider } from './components/ui/provider.tsx'
 import './index.css'
 
 async function enableMocking() {
-  if (process.env.NODE_ENV !== 'development' || process.env.VERCEL_ENV !== 'preview') {
-    return
-  }
   const { worker } = await import('./mocks/browser')
   return worker.start({
     onUnhandledRequest: 'bypass',
