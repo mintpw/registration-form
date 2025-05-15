@@ -34,7 +34,7 @@ const PersonalInformation = ({ onClickNext, registrationData }: PersonalInformat
   })
 
   return !isLoading ? (
-    <Card.Root width="50vh" boxShadow="lg">
+    <Card.Root boxShadow="lg" maxWidth="md" width="100%">
       <Card.Header>
         <Card.Title>Sign up</Card.Title>
         <Card.Description>Fill in the form below to create an account</Card.Description>
